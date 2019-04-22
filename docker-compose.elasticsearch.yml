@@ -14,5 +14,3 @@ services:
       - ./elasticsearchdata:/usr/share/elasticsearch/data
     ports:
       - 9200:9200
-    networks:
-      - <project_name>-network
