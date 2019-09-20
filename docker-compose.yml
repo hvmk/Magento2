@@ -1,8 +1,10 @@
 version: '2'
 services:
   apache:
-    image: rafaelcgstz/magento2
-    # build: .
+    #image: rafaelcgstz/magento2
+    build: 
+      context: .
+      dockerfile: Dockerfile
     ports:
       - "80:80" # web
       #- "9001:9000" # xdebug
@@ -23,7 +25,7 @@ services:
       - redis
       - redis-session
     networks:
-      - top-network
+      - centraltop-network
 
   db:
     image: mariadb
@@ -38,7 +40,7 @@ services:
       - dbdata:/var/lib/mysql
       - ./data:/var/lib
     networks:
-      - top-network
+      - centraltop-network
 
   phpmyadmin:
     image: phpmyadmin/phpmyadmin
@@ -50,21 +52,21 @@ services:
     ports:
      - 8080:80
     networks:
-      - top-network
+      - centraltop-network
 
   redis:
     image: redis
     ports:
      - 6379
     networks:
-      - top-network
+      - centraltop-network
 
   redis-session:
     image: redis
     ports:
      - 6379
     networks:
-      - top-network
+      - centraltop-network
 
   elasticsearch:
     image: elasticsearch:2.4
@@ -81,7 +83,7 @@ services:
     ports:
       - 9200:9200
     networks:
-      - top-network
+      - centraltop-network
 
   mailhog:
     image: mailhog/mailhog
@@ -89,10 +91,10 @@ services:
       - 1025:1025
       - 8025:8025
     networks:
-      - top-network
+      - centraltop-network
 
 networks:
-  top-network:
+  centraltop-network:
     driver: bridge
 
 volumes:
